@@ -4,9 +4,9 @@ Work In Progress...
 - Docker web
   - ~~Dockerfile copies contents of app, installs dependencies, exposes port~~
   - ~~docker-compose to run image, mount volumes for hot reloading later~~
-  - webpack dev server in dev environment
+  - webpack dev server in dev environment using src
+  - use build/bundle in prod environment
   - hot reloading within container (mounting volume to overwrite Dockerfile)
-  - bundle in prod environment
 - React/redux
 - File watching and processing
 

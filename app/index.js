@@ -7,6 +7,6 @@ const app = express();
 const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler));
-app.use(webpackHotMiddleware(compiler));
+// app.use(webpackHotMiddleware(compiler));
 
 app.listen(3000);

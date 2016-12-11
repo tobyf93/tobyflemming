@@ -11,7 +11,7 @@ class Main extends Component {
     console.log(photoswipe);
     return (
       <div>
-        something new!
+        something new!!!
       </div>
     );
   }

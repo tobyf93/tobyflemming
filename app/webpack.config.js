@@ -1,8 +1,10 @@
+const webpack = require('webpack');
+
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    html: './index.html',
-    js: './index.js'
+    html: ['webpack-hot-middleware/client', './index.html'],
+    js: ['webpack-hot-middleware/client', './index.js']
   },
   output: {
     path: __dirname + '/build',
@@ -20,5 +22,10 @@ module.exports = {
         loader: 'babel'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ]
 };

@@ -4,7 +4,7 @@ import reducer from '../reducers';
 
 const logger = createLogger({
   level: 'info',
-  collapsed: true
+  collapsed: true,
 });
 
 const applyStoreWithMiddleware = applyMiddleware(logger)(createStore);

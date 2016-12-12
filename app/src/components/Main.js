@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PhotoSwipe from 'photoswipe';
+import PhotoSwipe from 'photoswipe/dist/photoswipe.js';
+import PhotoSwipeUIDefault from 'photoswipe/dist/photoswipe-ui-default.js';
 import 'photoswipe/dist/photoswipe.css';
+import 'photoswipe/dist/default-skin/default-skin.css';
 
 class Main extends Component {
   componentDidMount() {
@@ -24,7 +26,7 @@ class Main extends Component {
       index: 0 // start at first slide
     };
 
-    var gallery = new PhotoSwipe(this.refs.gallery, false, items, options);
+    var gallery = new PhotoSwipe(this.refs.gallery, PhotoSwipeUIDefault, items, options);
     console.log(this.refs.gallery, items, options);
     gallery.init();
   }

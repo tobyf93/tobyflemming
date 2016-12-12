@@ -3,8 +3,8 @@ const webpack = require('webpack');
 module.exports = {
   context: __dirname + '/src',
   entry: {
-    html: [/*'webpack-hot-middleware/client', */'./index.html'],
-    js: [/*'webpack-hot-middleware/client', */'./index.js']
+    html: './index.html',
+    js: './index.js'
   },
   output: {
     path: __dirname + '/build',
@@ -15,6 +15,10 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'file?name=[name].[ext]'
+      },
+      {
+        test: /.css$/,
+        loader: 'style!css'
       },
       {
         test: /\.js$/,

@@ -1,13 +1,19 @@
 Work In Progress...
 
 #MVP
-- Docker web
+- web
   - ~~Dockerfile copies contents of app, installs dependencies, exposes port~~
   - ~~docker-compose to run image, mount volumes for hot reloading later~~
-  - webpack dev server in dev environment using src
-  - use build/bundle in prod environment
-  - hot reloading within container (mounting volume to overwrite Dockerfile)
-- React/redux
+  - ~~webpack dev server in dev environment~~
+  - bundle hosted by express or nginx container
+- ~~eslint with airbnb standards~~
+- ~~React/redux~~
+- api
+  - express server running out of container
+  - /albums endpoint
+    - image URLs
+    - album meta data (name)
+  - /album/:name returning image URLs
 - File watching and processing
 
 ##As a user i want to...

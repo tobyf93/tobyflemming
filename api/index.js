@@ -5,12 +5,10 @@ const co = require('co-express');
 const app = express();
 const port = 80;
 const imagePath = 'images';
-const baseURL = req => `${req.protocol}://${req.hostname}:${port}`;
-const imageURL = req => `${baseURL(req)}/images`;
 const jpgsOnly = file => file.match(/\.jpe?g$/);
 
 app.use(express.static('build'));
-app.use('/images', express.static(imagePath));
+app.use(express.static(imagePath));
 
 app.get('/albums', co(function* albums(req, res) {
   const directories = yield fs.readdir(imagePath);
@@ -25,7 +23,7 @@ app.get('/feed', co(function* feed(req, res) {
     const directory = directories[i];
     let files = yield fs.readdir(`${imagePath}/${directory}`);
     files = files.filter(jpgsOnly);
-    files.forEach(file => urls.push(`${imageURL(req)}/${directory}/${file}`));
+    files.forEach(file => urls.push(`${directory}/${file}`));
   }
 
   res.send(urls);

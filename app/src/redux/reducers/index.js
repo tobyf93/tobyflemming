@@ -1,6 +1,10 @@
-import { combineReducers } from 'redux';
-import test from './test';
+import { FETCH_FEED_SUCCESS } from '../actions';
 
-export default combineReducers({
-  test,
-});
+export default function (state = {}, action) {
+  switch (action.type) {
+    case FETCH_FEED_SUCCESS:
+      return { images: action.images };
+    default:
+      return state;
+  }
+}

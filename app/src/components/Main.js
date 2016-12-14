@@ -35,9 +35,7 @@ class Main extends Component {
         role="dialog"
         aria-hidden="true"
       >
-        <div className="pswp__bg">
-          f
-        </div>
+        <div className="pswp__bg" />
 
         <div className="pswp__scroll-wrap">
           <div className="pswp__container">

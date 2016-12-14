@@ -3,4 +3,6 @@ services:
   server:
     build: .
     ports:
-      - "3000:3000"
+      - "80:80"
+    volumes:
+      - ./app/build:/usr/src/app/build

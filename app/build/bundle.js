@@ -24185,6 +24185,14 @@
 
 	var _photoswipe2 = _interopRequireDefault(_photoswipe);
 
+	var _photoswipeUiDefault = __webpack_require__(219);
+
+	var _photoswipeUiDefault2 = _interopRequireDefault(_photoswipeUiDefault);
+
+	__webpack_require__(220);
+
+	__webpack_require__(224);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24205,16 +24213,93 @@
 	  _createClass(Main, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      console.log(_photoswipe2.default);
+	      var items = [{
+	        src: 'http://lorempixel.com/g/400/200/',
+	        w: 400,
+	        h: 200
+	      }, {
+	        src: 'http://lorempixel.com/g/500/200/',
+	        w: 500,
+	        h: 200
+	      }];
+
+	      var options = { index: 0 };
+
+	      var gallery = new _photoswipe2.default(this.gallery, _photoswipeUiDefault2.default, items, options);
+	      gallery.init();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(_photoswipe2.default);
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        'something new!'
+	        {
+	          ref: function ref(_ref) {
+	            _this2.gallery = _ref;
+	          },
+	          className: 'pswp',
+	          tabIndex: '-1',
+	          role: 'dialog',
+	          'aria-hidden': 'true'
+	        },
+	        _react2.default.createElement('div', { className: 'pswp__bg' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'pswp__scroll-wrap' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pswp__container' },
+	            _react2.default.createElement('div', { className: 'pswp__item' }),
+	            _react2.default.createElement('div', { className: 'pswp__item' }),
+	            _react2.default.createElement('div', { className: 'pswp__item' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pswp__ui pswp__ui--hidden' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__top-bar' },
+	              _react2.default.createElement('div', { className: 'pswp__counter' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--close', title: 'Close (Esc)' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--share', title: 'Share' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--fs', title: 'Toggle fullscreen' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--zoom', title: 'Zoom in/out' }),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'pswp__preloader' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'pswp__preloader__icn' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'pswp__preloader__cut' },
+	                    _react2.default.createElement('div', { className: 'pswp__preloader__donut' })
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__share-modal pswp__share-modal--hidden pswp__single-tap' },
+	              _react2.default.createElement('div', { className: 'pswp__share-tooltip' })
+	            ),
+	            _react2.default.createElement('button', {
+	              className: 'pswp__button pswp__button--arrow--left',
+	              title: 'Previous (arrow left)'
+	            }),
+	            _react2.default.createElement('button', {
+	              className: 'pswp__button pswp__button--arrow--right',
+	              title: 'Next (arrow right)'
+	            }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__caption' },
+	              _react2.default.createElement('div', { className: 'pswp__caption__center' })
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -27948,6 +28033,1279 @@
 		framework.extend(self, publicMethods); };
 		return PhotoSwipe;
 	});
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! PhotoSwipe Default UI - 4.1.1 - 2015-12-24
+	* http://photoswipe.com
+	* Copyright (c) 2015 Dmitry Semenov; */
+	/**
+	*
+	* UI on top of main sliding area (caption, arrows, close button, etc.).
+	* Built just using public methods/properties of PhotoSwipe.
+	* 
+	*/
+	(function (root, factory) { 
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports === 'object') {
+			module.exports = factory();
+		} else {
+			root.PhotoSwipeUI_Default = factory();
+		}
+	})(this, function () {
+
+		'use strict';
+
+
+
+	var PhotoSwipeUI_Default =
+	 function(pswp, framework) {
+
+		var ui = this;
+		var _overlayUIUpdated = false,
+			_controlsVisible = true,
+			_fullscrenAPI,
+			_controls,
+			_captionContainer,
+			_fakeCaptionContainer,
+			_indexIndicator,
+			_shareButton,
+			_shareModal,
+			_shareModalHidden = true,
+			_initalCloseOnScrollValue,
+			_isIdle,
+			_listen,
+
+			_loadingIndicator,
+			_loadingIndicatorHidden,
+			_loadingIndicatorTimeout,
+
+			_galleryHasOneSlide,
+
+			_options,
+			_defaultUIOptions = {
+				barsSize: {top:44, bottom:'auto'},
+				closeElClasses: ['item', 'caption', 'zoom-wrap', 'ui', 'top-bar'], 
+				timeToIdle: 4000, 
+				timeToIdleOutside: 1000,
+				loadingIndicatorDelay: 1000, // 2s
+				
+				addCaptionHTMLFn: function(item, captionEl /*, isFake */) {
+					if(!item.title) {
+						captionEl.children[0].innerHTML = '';
+						return false;
+					}
+					captionEl.children[0].innerHTML = item.title;
+					return true;
+				},
+
+				closeEl:true,
+				captionEl: true,
+				fullscreenEl: true,
+				zoomEl: true,
+				shareEl: true,
+				counterEl: true,
+				arrowEl: true,
+				preloaderEl: true,
+
+				tapToClose: false,
+				tapToToggleControls: true,
+
+				clickToCloseNonZoomable: true,
+
+				shareButtons: [
+					{id:'facebook', label:'Share on Facebook', url:'https://www.facebook.com/sharer/sharer.php?u={{url}}'},
+					{id:'twitter', label:'Tweet', url:'https://twitter.com/intent/tweet?text={{text}}&url={{url}}'},
+					{id:'pinterest', label:'Pin it', url:'http://www.pinterest.com/pin/create/button/'+
+														'?url={{url}}&media={{image_url}}&description={{text}}'},
+					{id:'download', label:'Download image', url:'{{raw_image_url}}', download:true}
+				],
+				getImageURLForShare: function( /* shareButtonData */ ) {
+					return pswp.currItem.src || '';
+				},
+				getPageURLForShare: function( /* shareButtonData */ ) {
+					return window.location.href;
+				},
+				getTextForShare: function( /* shareButtonData */ ) {
+					return pswp.currItem.title || '';
+				},
+					
+				indexIndicatorSep: ' / ',
+				fitControlsWidth: 1200
+
+			},
+			_blockControlsTap,
+			_blockControlsTapTimeout;
+
+
+
+		var _onControlsTap = function(e) {
+				if(_blockControlsTap) {
+					return true;
+				}
+
+
+				e = e || window.event;
+
+				if(_options.timeToIdle && _options.mouseUsed && !_isIdle) {
+					// reset idle timer
+					_onIdleMouseMove();
+				}
+
+
+				var target = e.target || e.srcElement,
+					uiElement,
+					clickedClass = target.getAttribute('class') || '',
+					found;
+
+				for(var i = 0; i < _uiElements.length; i++) {
+					uiElement = _uiElements[i];
+					if(uiElement.onTap && clickedClass.indexOf('pswp__' + uiElement.name ) > -1 ) {
+						uiElement.onTap();
+						found = true;
+
+					}
+				}
+
+				if(found) {
+					if(e.stopPropagation) {
+						e.stopPropagation();
+					}
+					_blockControlsTap = true;
+
+					// Some versions of Android don't prevent ghost click event 
+					// when preventDefault() was called on touchstart and/or touchend.
+					// 
+					// This happens on v4.3, 4.2, 4.1, 
+					// older versions strangely work correctly, 
+					// but just in case we add delay on all of them)	
+					var tapDelay = framework.features.isOldAndroid ? 600 : 30;
+					_blockControlsTapTimeout = setTimeout(function() {
+						_blockControlsTap = false;
+					}, tapDelay);
+				}
+
+			},
+			_fitControlsInViewport = function() {
+				return !pswp.likelyTouchDevice || _options.mouseUsed || screen.width > _options.fitControlsWidth;
+			},
+			_togglePswpClass = function(el, cName, add) {
+				framework[ (add ? 'add' : 'remove') + 'Class' ](el, 'pswp__' + cName);
+			},
+
+			// add class when there is just one item in the gallery
+			// (by default it hides left/right arrows and 1ofX counter)
+			_countNumItems = function() {
+				var hasOneSlide = (_options.getNumItemsFn() === 1);
+
+				if(hasOneSlide !== _galleryHasOneSlide) {
+					_togglePswpClass(_controls, 'ui--one-slide', hasOneSlide);
+					_galleryHasOneSlide = hasOneSlide;
+				}
+			},
+			_toggleShareModalClass = function() {
+				_togglePswpClass(_shareModal, 'share-modal--hidden', _shareModalHidden);
+			},
+			_toggleShareModal = function() {
+
+				_shareModalHidden = !_shareModalHidden;
+				
+				
+				if(!_shareModalHidden) {
+					_toggleShareModalClass();
+					setTimeout(function() {
+						if(!_shareModalHidden) {
+							framework.addClass(_shareModal, 'pswp__share-modal--fade-in');
+						}
+					}, 30);
+				} else {
+					framework.removeClass(_shareModal, 'pswp__share-modal--fade-in');
+					setTimeout(function() {
+						if(_shareModalHidden) {
+							_toggleShareModalClass();
+						}
+					}, 300);
+				}
+				
+				if(!_shareModalHidden) {
+					_updateShareURLs();
+				}
+				return false;
+			},
+
+			_openWindowPopup = function(e) {
+				e = e || window.event;
+				var target = e.target || e.srcElement;
+
+				pswp.shout('shareLinkClick', e, target);
+
+				if(!target.href) {
+					return false;
+				}
+
+				if( target.hasAttribute('download') ) {
+					return true;
+				}
+
+				window.open(target.href, 'pswp_share', 'scrollbars=yes,resizable=yes,toolbar=no,'+
+											'location=yes,width=550,height=420,top=100,left=' + 
+											(window.screen ? Math.round(screen.width / 2 - 275) : 100)  );
+
+				if(!_shareModalHidden) {
+					_toggleShareModal();
+				}
+				
+				return false;
+			},
+			_updateShareURLs = function() {
+				var shareButtonOut = '',
+					shareButtonData,
+					shareURL,
+					image_url,
+					page_url,
+					share_text;
+
+				for(var i = 0; i < _options.shareButtons.length; i++) {
+					shareButtonData = _options.shareButtons[i];
+
+					image_url = _options.getImageURLForShare(shareButtonData);
+					page_url = _options.getPageURLForShare(shareButtonData);
+					share_text = _options.getTextForShare(shareButtonData);
+
+					shareURL = shareButtonData.url.replace('{{url}}', encodeURIComponent(page_url) )
+										.replace('{{image_url}}', encodeURIComponent(image_url) )
+										.replace('{{raw_image_url}}', image_url )
+										.replace('{{text}}', encodeURIComponent(share_text) );
+
+					shareButtonOut += '<a href="' + shareURL + '" target="_blank" '+
+										'class="pswp__share--' + shareButtonData.id + '"' +
+										(shareButtonData.download ? 'download' : '') + '>' + 
+										shareButtonData.label + '</a>';
+
+					if(_options.parseShareButtonOut) {
+						shareButtonOut = _options.parseShareButtonOut(shareButtonData, shareButtonOut);
+					}
+				}
+				_shareModal.children[0].innerHTML = shareButtonOut;
+				_shareModal.children[0].onclick = _openWindowPopup;
+
+			},
+			_hasCloseClass = function(target) {
+				for(var  i = 0; i < _options.closeElClasses.length; i++) {
+					if( framework.hasClass(target, 'pswp__' + _options.closeElClasses[i]) ) {
+						return true;
+					}
+				}
+			},
+			_idleInterval,
+			_idleTimer,
+			_idleIncrement = 0,
+			_onIdleMouseMove = function() {
+				clearTimeout(_idleTimer);
+				_idleIncrement = 0;
+				if(_isIdle) {
+					ui.setIdle(false);
+				}
+			},
+			_onMouseLeaveWindow = function(e) {
+				e = e ? e : window.event;
+				var from = e.relatedTarget || e.toElement;
+				if (!from || from.nodeName === 'HTML') {
+					clearTimeout(_idleTimer);
+					_idleTimer = setTimeout(function() {
+						ui.setIdle(true);
+					}, _options.timeToIdleOutside);
+				}
+			},
+			_setupFullscreenAPI = function() {
+				if(_options.fullscreenEl && !framework.features.isOldAndroid) {
+					if(!_fullscrenAPI) {
+						_fullscrenAPI = ui.getFullscreenAPI();
+					}
+					if(_fullscrenAPI) {
+						framework.bind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+						ui.updateFullscreen();
+						framework.addClass(pswp.template, 'pswp--supports-fs');
+					} else {
+						framework.removeClass(pswp.template, 'pswp--supports-fs');
+					}
+				}
+			},
+			_setupLoadingIndicator = function() {
+				// Setup loading indicator
+				if(_options.preloaderEl) {
+				
+					_toggleLoadingIndicator(true);
+
+					_listen('beforeChange', function() {
+
+						clearTimeout(_loadingIndicatorTimeout);
+
+						// display loading indicator with delay
+						_loadingIndicatorTimeout = setTimeout(function() {
+
+							if(pswp.currItem && pswp.currItem.loading) {
+
+								if( !pswp.allowProgressiveImg() || (pswp.currItem.img && !pswp.currItem.img.naturalWidth)  ) {
+									// show preloader if progressive loading is not enabled, 
+									// or image width is not defined yet (because of slow connection)
+									_toggleLoadingIndicator(false); 
+									// items-controller.js function allowProgressiveImg
+								}
+								
+							} else {
+								_toggleLoadingIndicator(true); // hide preloader
+							}
+
+						}, _options.loadingIndicatorDelay);
+						
+					});
+					_listen('imageLoadComplete', function(index, item) {
+						if(pswp.currItem === item) {
+							_toggleLoadingIndicator(true);
+						}
+					});
+
+				}
+			},
+			_toggleLoadingIndicator = function(hide) {
+				if( _loadingIndicatorHidden !== hide ) {
+					_togglePswpClass(_loadingIndicator, 'preloader--active', !hide);
+					_loadingIndicatorHidden = hide;
+				}
+			},
+			_applyNavBarGaps = function(item) {
+				var gap = item.vGap;
+
+				if( _fitControlsInViewport() ) {
+					
+					var bars = _options.barsSize; 
+					if(_options.captionEl && bars.bottom === 'auto') {
+						if(!_fakeCaptionContainer) {
+							_fakeCaptionContainer = framework.createEl('pswp__caption pswp__caption--fake');
+							_fakeCaptionContainer.appendChild( framework.createEl('pswp__caption__center') );
+							_controls.insertBefore(_fakeCaptionContainer, _captionContainer);
+							framework.addClass(_controls, 'pswp__ui--fit');
+						}
+						if( _options.addCaptionHTMLFn(item, _fakeCaptionContainer, true) ) {
+
+							var captionSize = _fakeCaptionContainer.clientHeight;
+							gap.bottom = parseInt(captionSize,10) || 44;
+						} else {
+							gap.bottom = bars.top; // if no caption, set size of bottom gap to size of top
+						}
+					} else {
+						gap.bottom = bars.bottom === 'auto' ? 0 : bars.bottom;
+					}
+					
+					// height of top bar is static, no need to calculate it
+					gap.top = bars.top;
+				} else {
+					gap.top = gap.bottom = 0;
+				}
+			},
+			_setupIdle = function() {
+				// Hide controls when mouse is used
+				if(_options.timeToIdle) {
+					_listen('mouseUsed', function() {
+						
+						framework.bind(document, 'mousemove', _onIdleMouseMove);
+						framework.bind(document, 'mouseout', _onMouseLeaveWindow);
+
+						_idleInterval = setInterval(function() {
+							_idleIncrement++;
+							if(_idleIncrement === 2) {
+								ui.setIdle(true);
+							}
+						}, _options.timeToIdle / 2);
+					});
+				}
+			},
+			_setupHidingControlsDuringGestures = function() {
+
+				// Hide controls on vertical drag
+				_listen('onVerticalDrag', function(now) {
+					if(_controlsVisible && now < 0.95) {
+						ui.hideControls();
+					} else if(!_controlsVisible && now >= 0.95) {
+						ui.showControls();
+					}
+				});
+
+				// Hide controls when pinching to close
+				var pinchControlsHidden;
+				_listen('onPinchClose' , function(now) {
+					if(_controlsVisible && now < 0.9) {
+						ui.hideControls();
+						pinchControlsHidden = true;
+					} else if(pinchControlsHidden && !_controlsVisible && now > 0.9) {
+						ui.showControls();
+					}
+				});
+
+				_listen('zoomGestureEnded', function() {
+					pinchControlsHidden = false;
+					if(pinchControlsHidden && !_controlsVisible) {
+						ui.showControls();
+					}
+				});
+
+			};
+
+
+
+		var _uiElements = [
+			{ 
+				name: 'caption', 
+				option: 'captionEl',
+				onInit: function(el) {  
+					_captionContainer = el; 
+				} 
+			},
+			{ 
+				name: 'share-modal', 
+				option: 'shareEl',
+				onInit: function(el) {  
+					_shareModal = el;
+				},
+				onTap: function() {
+					_toggleShareModal();
+				} 
+			},
+			{ 
+				name: 'button--share', 
+				option: 'shareEl',
+				onInit: function(el) { 
+					_shareButton = el;
+				},
+				onTap: function() {
+					_toggleShareModal();
+				} 
+			},
+			{ 
+				name: 'button--zoom', 
+				option: 'zoomEl',
+				onTap: pswp.toggleDesktopZoom
+			},
+			{ 
+				name: 'counter', 
+				option: 'counterEl',
+				onInit: function(el) {  
+					_indexIndicator = el;
+				} 
+			},
+			{ 
+				name: 'button--close', 
+				option: 'closeEl',
+				onTap: pswp.close
+			},
+			{ 
+				name: 'button--arrow--left', 
+				option: 'arrowEl',
+				onTap: pswp.prev
+			},
+			{ 
+				name: 'button--arrow--right', 
+				option: 'arrowEl',
+				onTap: pswp.next
+			},
+			{ 
+				name: 'button--fs', 
+				option: 'fullscreenEl',
+				onTap: function() {  
+					if(_fullscrenAPI.isFullscreen()) {
+						_fullscrenAPI.exit();
+					} else {
+						_fullscrenAPI.enter();
+					}
+				} 
+			},
+			{ 
+				name: 'preloader', 
+				option: 'preloaderEl',
+				onInit: function(el) {  
+					_loadingIndicator = el;
+				} 
+			}
+
+		];
+
+		var _setupUIElements = function() {
+			var item,
+				classAttr,
+				uiElement;
+
+			var loopThroughChildElements = function(sChildren) {
+				if(!sChildren) {
+					return;
+				}
+
+				var l = sChildren.length;
+				for(var i = 0; i < l; i++) {
+					item = sChildren[i];
+					classAttr = item.className;
+
+					for(var a = 0; a < _uiElements.length; a++) {
+						uiElement = _uiElements[a];
+
+						if(classAttr.indexOf('pswp__' + uiElement.name) > -1  ) {
+
+							if( _options[uiElement.option] ) { // if element is not disabled from options
+								
+								framework.removeClass(item, 'pswp__element--disabled');
+								if(uiElement.onInit) {
+									uiElement.onInit(item);
+								}
+								
+								//item.style.display = 'block';
+							} else {
+								framework.addClass(item, 'pswp__element--disabled');
+								//item.style.display = 'none';
+							}
+						}
+					}
+				}
+			};
+			loopThroughChildElements(_controls.children);
+
+			var topBar =  framework.getChildByClass(_controls, 'pswp__top-bar');
+			if(topBar) {
+				loopThroughChildElements( topBar.children );
+			}
+		};
+
+
+		
+
+		ui.init = function() {
+
+			// extend options
+			framework.extend(pswp.options, _defaultUIOptions, true);
+
+			// create local link for fast access
+			_options = pswp.options;
+
+			// find pswp__ui element
+			_controls = framework.getChildByClass(pswp.scrollWrap, 'pswp__ui');
+
+			// create local link
+			_listen = pswp.listen;
+
+
+			_setupHidingControlsDuringGestures();
+
+			// update controls when slides change
+			_listen('beforeChange', ui.update);
+
+			// toggle zoom on double-tap
+			_listen('doubleTap', function(point) {
+				var initialZoomLevel = pswp.currItem.initialZoomLevel;
+				if(pswp.getZoomLevel() !== initialZoomLevel) {
+					pswp.zoomTo(initialZoomLevel, point, 333);
+				} else {
+					pswp.zoomTo(_options.getDoubleTapZoom(false, pswp.currItem), point, 333);
+				}
+			});
+
+			// Allow text selection in caption
+			_listen('preventDragEvent', function(e, isDown, preventObj) {
+				var t = e.target || e.srcElement;
+				if(
+					t && 
+					t.getAttribute('class') && e.type.indexOf('mouse') > -1 && 
+					( t.getAttribute('class').indexOf('__caption') > 0 || (/(SMALL|STRONG|EM)/i).test(t.tagName) ) 
+				) {
+					preventObj.prevent = false;
+				}
+			});
+
+			// bind events for UI
+			_listen('bindEvents', function() {
+				framework.bind(_controls, 'pswpTap click', _onControlsTap);
+				framework.bind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
+
+				if(!pswp.likelyTouchDevice) {
+					framework.bind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
+				}
+			});
+
+			// unbind events for UI
+			_listen('unbindEvents', function() {
+				if(!_shareModalHidden) {
+					_toggleShareModal();
+				}
+
+				if(_idleInterval) {
+					clearInterval(_idleInterval);
+				}
+				framework.unbind(document, 'mouseout', _onMouseLeaveWindow);
+				framework.unbind(document, 'mousemove', _onIdleMouseMove);
+				framework.unbind(_controls, 'pswpTap click', _onControlsTap);
+				framework.unbind(pswp.scrollWrap, 'pswpTap', ui.onGlobalTap);
+				framework.unbind(pswp.scrollWrap, 'mouseover', ui.onMouseOver);
+
+				if(_fullscrenAPI) {
+					framework.unbind(document, _fullscrenAPI.eventK, ui.updateFullscreen);
+					if(_fullscrenAPI.isFullscreen()) {
+						_options.hideAnimationDuration = 0;
+						_fullscrenAPI.exit();
+					}
+					_fullscrenAPI = null;
+				}
+			});
+
+
+			// clean up things when gallery is destroyed
+			_listen('destroy', function() {
+				if(_options.captionEl) {
+					if(_fakeCaptionContainer) {
+						_controls.removeChild(_fakeCaptionContainer);
+					}
+					framework.removeClass(_captionContainer, 'pswp__caption--empty');
+				}
+
+				if(_shareModal) {
+					_shareModal.children[0].onclick = null;
+				}
+				framework.removeClass(_controls, 'pswp__ui--over-close');
+				framework.addClass( _controls, 'pswp__ui--hidden');
+				ui.setIdle(false);
+			});
+			
+
+			if(!_options.showAnimationDuration) {
+				framework.removeClass( _controls, 'pswp__ui--hidden');
+			}
+			_listen('initialZoomIn', function() {
+				if(_options.showAnimationDuration) {
+					framework.removeClass( _controls, 'pswp__ui--hidden');
+				}
+			});
+			_listen('initialZoomOut', function() {
+				framework.addClass( _controls, 'pswp__ui--hidden');
+			});
+
+			_listen('parseVerticalMargin', _applyNavBarGaps);
+			
+			_setupUIElements();
+
+			if(_options.shareEl && _shareButton && _shareModal) {
+				_shareModalHidden = true;
+			}
+
+			_countNumItems();
+
+			_setupIdle();
+
+			_setupFullscreenAPI();
+
+			_setupLoadingIndicator();
+		};
+
+		ui.setIdle = function(isIdle) {
+			_isIdle = isIdle;
+			_togglePswpClass(_controls, 'ui--idle', isIdle);
+		};
+
+		ui.update = function() {
+			// Don't update UI if it's hidden
+			if(_controlsVisible && pswp.currItem) {
+				
+				ui.updateIndexIndicator();
+
+				if(_options.captionEl) {
+					_options.addCaptionHTMLFn(pswp.currItem, _captionContainer);
+
+					_togglePswpClass(_captionContainer, 'caption--empty', !pswp.currItem.title);
+				}
+
+				_overlayUIUpdated = true;
+
+			} else {
+				_overlayUIUpdated = false;
+			}
+
+			if(!_shareModalHidden) {
+				_toggleShareModal();
+			}
+
+			_countNumItems();
+		};
+
+		ui.updateFullscreen = function(e) {
+
+			if(e) {
+				// some browsers change window scroll position during the fullscreen
+				// so PhotoSwipe updates it just in case
+				setTimeout(function() {
+					pswp.setScrollOffset( 0, framework.getScrollY() );
+				}, 50);
+			}
+			
+			// toogle pswp--fs class on root element
+			framework[ (_fullscrenAPI.isFullscreen() ? 'add' : 'remove') + 'Class' ](pswp.template, 'pswp--fs');
+		};
+
+		ui.updateIndexIndicator = function() {
+			if(_options.counterEl) {
+				_indexIndicator.innerHTML = (pswp.getCurrentIndex()+1) + 
+											_options.indexIndicatorSep + 
+											_options.getNumItemsFn();
+			}
+		};
+		
+		ui.onGlobalTap = function(e) {
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+
+			if(_blockControlsTap) {
+				return;
+			}
+
+			if(e.detail && e.detail.pointerType === 'mouse') {
+
+				// close gallery if clicked outside of the image
+				if(_hasCloseClass(target)) {
+					pswp.close();
+					return;
+				}
+
+				if(framework.hasClass(target, 'pswp__img')) {
+					if(pswp.getZoomLevel() === 1 && pswp.getZoomLevel() <= pswp.currItem.fitRatio) {
+						if(_options.clickToCloseNonZoomable) {
+							pswp.close();
+						}
+					} else {
+						pswp.toggleDesktopZoom(e.detail.releasePoint);
+					}
+				}
+				
+			} else {
+
+				// tap anywhere (except buttons) to toggle visibility of controls
+				if(_options.tapToToggleControls) {
+					if(_controlsVisible) {
+						ui.hideControls();
+					} else {
+						ui.showControls();
+					}
+				}
+
+				// tap to close gallery
+				if(_options.tapToClose && (framework.hasClass(target, 'pswp__img') || _hasCloseClass(target)) ) {
+					pswp.close();
+					return;
+				}
+				
+			}
+		};
+		ui.onMouseOver = function(e) {
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+
+			// add class when mouse is over an element that should close the gallery
+			_togglePswpClass(_controls, 'ui--over-close', _hasCloseClass(target));
+		};
+
+		ui.hideControls = function() {
+			framework.addClass(_controls,'pswp__ui--hidden');
+			_controlsVisible = false;
+		};
+
+		ui.showControls = function() {
+			_controlsVisible = true;
+			if(!_overlayUIUpdated) {
+				ui.update();
+			}
+			framework.removeClass(_controls,'pswp__ui--hidden');
+		};
+
+		ui.supportsFullscreen = function() {
+			var d = document;
+			return !!(d.exitFullscreen || d.mozCancelFullScreen || d.webkitExitFullscreen || d.msExitFullscreen);
+		};
+
+		ui.getFullscreenAPI = function() {
+			var dE = document.documentElement,
+				api,
+				tF = 'fullscreenchange';
+
+			if (dE.requestFullscreen) {
+				api = {
+					enterK: 'requestFullscreen',
+					exitK: 'exitFullscreen',
+					elementK: 'fullscreenElement',
+					eventK: tF
+				};
+
+			} else if(dE.mozRequestFullScreen ) {
+				api = {
+					enterK: 'mozRequestFullScreen',
+					exitK: 'mozCancelFullScreen',
+					elementK: 'mozFullScreenElement',
+					eventK: 'moz' + tF
+				};
+
+				
+
+			} else if(dE.webkitRequestFullscreen) {
+				api = {
+					enterK: 'webkitRequestFullscreen',
+					exitK: 'webkitExitFullscreen',
+					elementK: 'webkitFullscreenElement',
+					eventK: 'webkit' + tF
+				};
+
+			} else if(dE.msRequestFullscreen) {
+				api = {
+					enterK: 'msRequestFullscreen',
+					exitK: 'msExitFullscreen',
+					elementK: 'msFullscreenElement',
+					eventK: 'MSFullscreenChange'
+				};
+			}
+
+			if(api) {
+				api.enter = function() { 
+					// disable close-on-scroll in fullscreen
+					_initalCloseOnScrollValue = _options.closeOnScroll; 
+					_options.closeOnScroll = false; 
+
+					if(this.enterK === 'webkitRequestFullscreen') {
+						pswp.template[this.enterK]( Element.ALLOW_KEYBOARD_INPUT );
+					} else {
+						return pswp.template[this.enterK](); 
+					}
+				};
+				api.exit = function() { 
+					_options.closeOnScroll = _initalCloseOnScrollValue;
+
+					return document[this.exitK](); 
+
+				};
+				api.isFullscreen = function() { return document[this.elementK]; };
+			}
+
+			return api;
+		};
+
+
+
+	};
+	return PhotoSwipeUI_Default;
+
+
+	});
+
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(221);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(223)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./photoswipe.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./photoswipe.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(222)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*! PhotoSwipe main CSS by Dmitry Semenov | photoswipe.com | MIT license */\n/*\n\tStyles for basic PhotoSwipe functionality (sliding area, open/close transitions)\n*/\n/* pswp = photoswipe */\n.pswp {\n  display: none;\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0;\n  top: 0;\n  overflow: hidden;\n  -ms-touch-action: none;\n  touch-action: none;\n  z-index: 1500;\n  -webkit-text-size-adjust: 100%;\n  /* create separate layer, to avoid paint on window.onscroll in webkit/blink */\n  -webkit-backface-visibility: hidden;\n  outline: none; }\n  .pswp * {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box; }\n  .pswp img {\n    max-width: none; }\n\n/* style is added when JS option showHideOpacity is set to true */\n.pswp--animate_opacity {\n  /* 0.001, because opacity:0 doesn't trigger Paint action, which causes lag at start of transition */\n  opacity: 0.001;\n  will-change: opacity;\n  /* for open/close transition */\n  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);\n          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }\n\n.pswp--open {\n  display: block; }\n\n.pswp--zoom-allowed .pswp__img {\n  /* autoprefixer: off */\n  cursor: -webkit-zoom-in;\n  cursor: -moz-zoom-in;\n  cursor: zoom-in; }\n\n.pswp--zoomed-in .pswp__img {\n  /* autoprefixer: off */\n  cursor: -webkit-grab;\n  cursor: -moz-grab;\n  cursor: grab; }\n\n.pswp--dragging .pswp__img {\n  /* autoprefixer: off */\n  cursor: -webkit-grabbing;\n  cursor: -moz-grabbing;\n  cursor: grabbing; }\n\n/*\n\tBackground is added as a separate element.\n\tAs animating opacity is much faster than animating rgba() background-color.\n*/\n.pswp__bg {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  background: #000;\n  opacity: 0;\n  -webkit-backface-visibility: hidden;\n  will-change: opacity; }\n\n.pswp__scroll-wrap {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n\n.pswp__container,\n.pswp__zoom-wrap {\n  -ms-touch-action: none;\n  touch-action: none;\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0; }\n\n/* Prevent selection and tap highlights */\n.pswp__container,\n.pswp__img {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n      user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-touch-callout: none; }\n\n.pswp__zoom-wrap {\n  position: absolute;\n  width: 100%;\n  -webkit-transform-origin: left top;\n  -ms-transform-origin: left top;\n  transform-origin: left top;\n  /* for open/close transition */\n  -webkit-transition: -webkit-transform 333ms cubic-bezier(0.4, 0, 0.22, 1);\n          transition: transform 333ms cubic-bezier(0.4, 0, 0.22, 1); }\n\n.pswp__bg {\n  will-change: opacity;\n  /* for open/close transition */\n  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);\n          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }\n\n.pswp--animated-in .pswp__bg,\n.pswp--animated-in .pswp__zoom-wrap {\n  -webkit-transition: none;\n  transition: none; }\n\n.pswp__container,\n.pswp__zoom-wrap {\n  -webkit-backface-visibility: hidden; }\n\n.pswp__item {\n  position: absolute;\n  left: 0;\n  right: 0;\n  top: 0;\n  bottom: 0;\n  overflow: hidden; }\n\n.pswp__img {\n  position: absolute;\n  width: auto;\n  height: auto;\n  top: 0;\n  left: 0; }\n\n/*\n\tstretched thumbnail or div placeholder element (see below)\n\tstyle is added to avoid flickering in webkit/blink when layers overlap\n*/\n.pswp__img--placeholder {\n  -webkit-backface-visibility: hidden; }\n\n/*\n\tdiv element that matches size of large image\n\tlarge image loads on top of it\n*/\n.pswp__img--placeholder--blank {\n  background: #222; }\n\n.pswp--ie .pswp__img {\n  width: 100% !important;\n  height: auto !important;\n  left: 0;\n  top: 0; }\n\n/*\n\tError message appears when image is not loaded\n\t(JS option errorMsg controls markup)\n*/\n.pswp__error-msg {\n  position: absolute;\n  left: 0;\n  top: 50%;\n  width: 100%;\n  text-align: center;\n  font-size: 14px;\n  line-height: 16px;\n  margin-top: -8px;\n  color: #CCC; }\n\n.pswp__error-msg a {\n  color: #CCC;\n  text-decoration: underline; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 222 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(225);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(223)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../css-loader/index.js!./default-skin.css", function() {
+				var newContent = require("!!./../../../css-loader/index.js!./default-skin.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(222)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*! PhotoSwipe Default UI CSS by Dmitry Semenov | photoswipe.com | MIT license */\n/*\n\n\tContents:\n\n\t1. Buttons\n\t2. Share modal and links\n\t3. Index indicator (\"1 of X\" counter)\n\t4. Caption\n\t5. Loading indicator\n\t6. Additional styles (root element, top bar, idle state, hidden state, etc.)\n\n*/\n/*\n\t\n\t1. Buttons\n\n */\n/* <button> css reset */\n.pswp__button {\n  width: 44px;\n  height: 44px;\n  position: relative;\n  background: none;\n  cursor: pointer;\n  overflow: visible;\n  -webkit-appearance: none;\n  display: block;\n  border: 0;\n  padding: 0;\n  margin: 0;\n  float: right;\n  opacity: 0.75;\n  -webkit-transition: opacity 0.2s;\n          transition: opacity 0.2s;\n  -webkit-box-shadow: none;\n          box-shadow: none; }\n  .pswp__button:focus,\n  .pswp__button:hover {\n    opacity: 1; }\n  .pswp__button:active {\n    outline: none;\n    opacity: 0.9; }\n  .pswp__button::-moz-focus-inner {\n    padding: 0;\n    border: 0; }\n\n/* pswp__ui--over-close class it added when mouse is over element that should close gallery */\n.pswp__ui--over-close .pswp__button--close {\n  opacity: 1; }\n\n.pswp__button,\n.pswp__button--arrow--left:before,\n.pswp__button--arrow--right:before {\n  background: url(" + __webpack_require__(226) + ") 0 0 no-repeat;\n  background-size: 264px 88px;\n  width: 44px;\n  height: 44px; }\n\n@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {\n  /* Serve SVG sprite if browser supports SVG and resolution is more than 105dpi */\n  .pswp--svg .pswp__button,\n  .pswp--svg .pswp__button--arrow--left:before,\n  .pswp--svg .pswp__button--arrow--right:before {\n    background-image: url(" + __webpack_require__(227) + "); }\n  .pswp--svg .pswp__button--arrow--left,\n  .pswp--svg .pswp__button--arrow--right {\n    background: none; } }\n\n.pswp__button--close {\n  background-position: 0 -44px; }\n\n.pswp__button--share {\n  background-position: -44px -44px; }\n\n.pswp__button--fs {\n  display: none; }\n\n.pswp--supports-fs .pswp__button--fs {\n  display: block; }\n\n.pswp--fs .pswp__button--fs {\n  background-position: -44px 0; }\n\n.pswp__button--zoom {\n  display: none;\n  background-position: -88px 0; }\n\n.pswp--zoom-allowed .pswp__button--zoom {\n  display: block; }\n\n.pswp--zoomed-in .pswp__button--zoom {\n  background-position: -132px 0; }\n\n/* no arrows on touch screens */\n.pswp--touch .pswp__button--arrow--left,\n.pswp--touch .pswp__button--arrow--right {\n  visibility: hidden; }\n\n/*\n\tArrow buttons hit area\n\t(icon is added to :before pseudo-element)\n*/\n.pswp__button--arrow--left,\n.pswp__button--arrow--right {\n  background: none;\n  top: 50%;\n  margin-top: -50px;\n  width: 70px;\n  height: 100px;\n  position: absolute; }\n\n.pswp__button--arrow--left {\n  left: 0; }\n\n.pswp__button--arrow--right {\n  right: 0; }\n\n.pswp__button--arrow--left:before,\n.pswp__button--arrow--right:before {\n  content: '';\n  top: 35px;\n  background-color: rgba(0, 0, 0, 0.3);\n  height: 30px;\n  width: 32px;\n  position: absolute; }\n\n.pswp__button--arrow--left:before {\n  left: 6px;\n  background-position: -138px -44px; }\n\n.pswp__button--arrow--right:before {\n  right: 6px;\n  background-position: -94px -44px; }\n\n/*\n\n\t2. Share modal/popup and links\n\n */\n.pswp__counter,\n.pswp__share-modal {\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n      user-select: none; }\n\n.pswp__share-modal {\n  display: block;\n  background: rgba(0, 0, 0, 0.5);\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0;\n  padding: 10px;\n  position: absolute;\n  z-index: 1600;\n  opacity: 0;\n  -webkit-transition: opacity 0.25s ease-out;\n          transition: opacity 0.25s ease-out;\n  -webkit-backface-visibility: hidden;\n  will-change: opacity; }\n\n.pswp__share-modal--hidden {\n  display: none; }\n\n.pswp__share-tooltip {\n  z-index: 1620;\n  position: absolute;\n  background: #FFF;\n  top: 56px;\n  border-radius: 2px;\n  display: block;\n  width: auto;\n  right: 44px;\n  -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);\n          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);\n  -webkit-transform: translateY(6px);\n      -ms-transform: translateY(6px);\n          transform: translateY(6px);\n  -webkit-transition: -webkit-transform 0.25s;\n          transition: transform 0.25s;\n  -webkit-backface-visibility: hidden;\n  will-change: transform; }\n  .pswp__share-tooltip a {\n    display: block;\n    padding: 8px 12px;\n    color: #000;\n    text-decoration: none;\n    font-size: 14px;\n    line-height: 18px; }\n    .pswp__share-tooltip a:hover {\n      text-decoration: none;\n      color: #000; }\n    .pswp__share-tooltip a:first-child {\n      /* round corners on the first/last list item */\n      border-radius: 2px 2px 0 0; }\n    .pswp__share-tooltip a:last-child {\n      border-radius: 0 0 2px 2px; }\n\n.pswp__share-modal--fade-in {\n  opacity: 1; }\n  .pswp__share-modal--fade-in .pswp__share-tooltip {\n    -webkit-transform: translateY(0);\n        -ms-transform: translateY(0);\n            transform: translateY(0); }\n\n/* increase size of share links on touch devices */\n.pswp--touch .pswp__share-tooltip a {\n  padding: 16px 12px; }\n\na.pswp__share--facebook:before {\n  content: '';\n  display: block;\n  width: 0;\n  height: 0;\n  position: absolute;\n  top: -12px;\n  right: 15px;\n  border: 6px solid transparent;\n  border-bottom-color: #FFF;\n  -webkit-pointer-events: none;\n  -moz-pointer-events: none;\n  pointer-events: none; }\n\na.pswp__share--facebook:hover {\n  background: #3E5C9A;\n  color: #FFF; }\n  a.pswp__share--facebook:hover:before {\n    border-bottom-color: #3E5C9A; }\n\na.pswp__share--twitter:hover {\n  background: #55ACEE;\n  color: #FFF; }\n\na.pswp__share--pinterest:hover {\n  background: #CCC;\n  color: #CE272D; }\n\na.pswp__share--download:hover {\n  background: #DDD; }\n\n/*\n\n\t3. Index indicator (\"1 of X\" counter)\n\n */\n.pswp__counter {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 44px;\n  font-size: 13px;\n  line-height: 44px;\n  color: #FFF;\n  opacity: 0.75;\n  padding: 0 10px; }\n\n/*\n\t\n\t4. Caption\n\n */\n.pswp__caption {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  width: 100%;\n  min-height: 44px; }\n  .pswp__caption small {\n    font-size: 11px;\n    color: #BBB; }\n\n.pswp__caption__center {\n  text-align: left;\n  max-width: 420px;\n  margin: 0 auto;\n  font-size: 13px;\n  padding: 10px;\n  line-height: 20px;\n  color: #CCC; }\n\n.pswp__caption--empty {\n  display: none; }\n\n/* Fake caption element, used to calculate height of next/prev image */\n.pswp__caption--fake {\n  visibility: hidden; }\n\n/*\n\n\t5. Loading indicator (preloader)\n\n\tYou can play with it here - http://codepen.io/dimsemenov/pen/yyBWoR\n\n */\n.pswp__preloader {\n  width: 44px;\n  height: 44px;\n  position: absolute;\n  top: 0;\n  left: 50%;\n  margin-left: -22px;\n  opacity: 0;\n  -webkit-transition: opacity 0.25s ease-out;\n          transition: opacity 0.25s ease-out;\n  will-change: opacity;\n  direction: ltr; }\n\n.pswp__preloader__icn {\n  width: 20px;\n  height: 20px;\n  margin: 12px; }\n\n.pswp__preloader--active {\n  opacity: 1; }\n  .pswp__preloader--active .pswp__preloader__icn {\n    /* We use .gif in browsers that don't support CSS animation */\n    background: url(" + __webpack_require__(228) + ") 0 0 no-repeat; }\n\n.pswp--css_animation .pswp__preloader--active {\n  opacity: 1; }\n  .pswp--css_animation .pswp__preloader--active .pswp__preloader__icn {\n    -webkit-animation: clockwise 500ms linear infinite;\n            animation: clockwise 500ms linear infinite; }\n  .pswp--css_animation .pswp__preloader--active .pswp__preloader__donut {\n    -webkit-animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite;\n            animation: donut-rotate 1000ms cubic-bezier(0.4, 0, 0.22, 1) infinite; }\n\n.pswp--css_animation .pswp__preloader__icn {\n  background: none;\n  opacity: 0.75;\n  width: 14px;\n  height: 14px;\n  position: absolute;\n  left: 15px;\n  top: 15px;\n  margin: 0; }\n\n.pswp--css_animation .pswp__preloader__cut {\n  /* \n\t\t\tThe idea of animating inner circle is based on Polymer (\"material\") loading indicator \n\t\t\t by Keanu Lee https://blog.keanulee.com/2014/10/20/the-tale-of-three-spinners.html\n\t\t*/\n  position: relative;\n  width: 7px;\n  height: 14px;\n  overflow: hidden; }\n\n.pswp--css_animation .pswp__preloader__donut {\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  width: 14px;\n  height: 14px;\n  border: 2px solid #FFF;\n  border-radius: 50%;\n  border-left-color: transparent;\n  border-bottom-color: transparent;\n  position: absolute;\n  top: 0;\n  left: 0;\n  background: none;\n  margin: 0; }\n\n@media screen and (max-width: 1024px) {\n  .pswp__preloader {\n    position: relative;\n    left: auto;\n    top: auto;\n    margin: 0;\n    float: right; } }\n\n@-webkit-keyframes clockwise {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes clockwise {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@-webkit-keyframes donut-rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0); }\n  50% {\n    -webkit-transform: rotate(-140deg);\n            transform: rotate(-140deg); }\n  100% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0); } }\n\n@keyframes donut-rotate {\n  0% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0); }\n  50% {\n    -webkit-transform: rotate(-140deg);\n            transform: rotate(-140deg); }\n  100% {\n    -webkit-transform: rotate(0);\n            transform: rotate(0); } }\n\n/*\n\t\n\t6. Additional styles\n\n */\n/* root element of UI */\n.pswp__ui {\n  -webkit-font-smoothing: auto;\n  visibility: visible;\n  opacity: 1;\n  z-index: 1550; }\n\n/* top black bar with buttons and \"1 of X\" indicator */\n.pswp__top-bar {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 44px;\n  width: 100%; }\n\n.pswp__caption,\n.pswp__top-bar,\n.pswp--has_mouse .pswp__button--arrow--left,\n.pswp--has_mouse .pswp__button--arrow--right {\n  -webkit-backface-visibility: hidden;\n  will-change: opacity;\n  -webkit-transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);\n          transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1); }\n\n/* pswp--has_mouse class is added only when two subsequent mousemove events occur */\n.pswp--has_mouse .pswp__button--arrow--left,\n.pswp--has_mouse .pswp__button--arrow--right {\n  visibility: visible; }\n\n.pswp__top-bar,\n.pswp__caption {\n  background-color: rgba(0, 0, 0, 0.5); }\n\n/* pswp__ui--fit class is added when main image \"fits\" between top bar and bottom bar (caption) */\n.pswp__ui--fit .pswp__top-bar,\n.pswp__ui--fit .pswp__caption {\n  background-color: rgba(0, 0, 0, 0.3); }\n\n/* pswp__ui--idle class is added when mouse isn't moving for several seconds (JS option timeToIdle) */\n.pswp__ui--idle .pswp__top-bar {\n  opacity: 0; }\n\n.pswp__ui--idle .pswp__button--arrow--left,\n.pswp__ui--idle .pswp__button--arrow--right {\n  opacity: 0; }\n\n/*\n\tpswp__ui--hidden class is added when controls are hidden\n\te.g. when user taps to toggle visibility of controls\n*/\n.pswp__ui--hidden .pswp__top-bar,\n.pswp__ui--hidden .pswp__caption,\n.pswp__ui--hidden .pswp__button--arrow--left,\n.pswp__ui--hidden .pswp__button--arrow--right {\n  /* Force paint & create composition layer for controls. */\n  opacity: 0.001; }\n\n/* pswp__ui--one-slide class is added when there is just one item in gallery */\n.pswp__ui--one-slide .pswp__button--arrow--left,\n.pswp__ui--one-slide .pswp__button--arrow--right,\n.pswp__ui--one-slide .pswp__counter {\n  display: none; }\n\n.pswp__element--disabled {\n  display: none !important; }\n\n.pswp--minimal--dark .pswp__top-bar {\n  background: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e3f799c6dec9af194c86decdf7392405.png";
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "3ba3b1beb0f9bc74d63ecb7e084dfedc.svg";
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e34aafbb485a96eaf2a789b2bf3af6fe.gif";
 
 /***/ }
 /******/ ]);

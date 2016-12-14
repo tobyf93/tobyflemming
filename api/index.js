@@ -3,7 +3,7 @@ const fs = require('mz/fs');
 const co = require('co-express');
 
 const app = express();
-const port = 3000;
+const port = 80;
 const imagePath = 'images';
 const baseURL = req => `${req.protocol}://${req.hostname}:${port}`;
 const imageURL = req => `${baseURL(req)}/images`;

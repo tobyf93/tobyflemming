@@ -8,6 +8,7 @@ Work In Progress...
   - bundle hosted by express or nginx container
 - ~~eslint with airbnb standards~~
 - ~~React/redux~~
+- ~~docker-compose used for dev, Dockerfile used for prod~~
 - api
   - express server running out of container
   - /albums endpoint

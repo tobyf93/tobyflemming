@@ -5,5 +5,5 @@ COPY ./api /usr/src/app
 COPY ./app/build /usr/src/app/build
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 80
 CMD ["npm", "start"]

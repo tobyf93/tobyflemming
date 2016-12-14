@@ -2,7 +2,9 @@ version: '2'
 services:
   server:
     build: .
+    command: npm run start-dev
     ports:
       - "80:80"
     volumes:
       - ./app/build:/usr/src/app/build
+      - ./api/index.js:/usr/src/app/index.js

@@ -24181,17 +24181,13 @@
 
 	var _reactRedux = __webpack_require__(178);
 
-	var _photoswipe = __webpack_require__(218);
+	var _Gallery = __webpack_require__(229);
 
-	var _photoswipe2 = _interopRequireDefault(_photoswipe);
+	var _Gallery2 = _interopRequireDefault(_Gallery);
 
-	var _photoswipeUiDefault = __webpack_require__(219);
+	var _Image = __webpack_require__(230);
 
-	var _photoswipeUiDefault2 = _interopRequireDefault(_photoswipeUiDefault);
-
-	__webpack_require__(220);
-
-	__webpack_require__(224);
+	var _Image2 = _interopRequireDefault(_Image);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24213,20 +24209,7 @@
 	  _createClass(Main, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var items = [{
-	        src: 'http://lorempixel.com/g/400/200/',
-	        w: 400,
-	        h: 200
-	      }, {
-	        src: 'http://lorempixel.com/g/500/200/',
-	        w: 500,
-	        h: 200
-	      }];
-
-	      var options = { index: 0 };
-
-	      var gallery = new _photoswipe2.default(this.gallery, _photoswipeUiDefault2.default, items, options);
-	      gallery.init();
+	      // this.gallery.show();
 	    }
 	  }, {
 	    key: 'render',
@@ -24235,71 +24218,11 @@
 
 	      return _react2.default.createElement(
 	        'div',
-	        {
-	          ref: function ref(_ref) {
+	        null,
+	        _react2.default.createElement(_Gallery2.default, { ref: function ref(_ref) {
 	            _this2.gallery = _ref;
-	          },
-	          className: 'pswp',
-	          tabIndex: '-1',
-	          role: 'dialog',
-	          'aria-hidden': 'true'
-	        },
-	        _react2.default.createElement('div', { className: 'pswp__bg' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pswp__scroll-wrap' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'pswp__container' },
-	            _react2.default.createElement('div', { className: 'pswp__item' }),
-	            _react2.default.createElement('div', { className: 'pswp__item' }),
-	            _react2.default.createElement('div', { className: 'pswp__item' })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'pswp__ui pswp__ui--hidden' },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pswp__top-bar' },
-	              _react2.default.createElement('div', { className: 'pswp__counter' }),
-	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--close', title: 'Close (Esc)' }),
-	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--share', title: 'Share' }),
-	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--fs', title: 'Toggle fullscreen' }),
-	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--zoom', title: 'Zoom in/out' }),
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'pswp__preloader' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'pswp__preloader__icn' },
-	                  _react2.default.createElement(
-	                    'div',
-	                    { className: 'pswp__preloader__cut' },
-	                    _react2.default.createElement('div', { className: 'pswp__preloader__donut' })
-	                  )
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pswp__share-modal pswp__share-modal--hidden pswp__single-tap' },
-	              _react2.default.createElement('div', { className: 'pswp__share-tooltip' })
-	            ),
-	            _react2.default.createElement('button', {
-	              className: 'pswp__button pswp__button--arrow--left',
-	              title: 'Previous (arrow left)'
-	            }),
-	            _react2.default.createElement('button', {
-	              className: 'pswp__button pswp__button--arrow--right',
-	              title: 'Next (arrow right)'
-	            }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'pswp__caption' },
-	              _react2.default.createElement('div', { className: 'pswp__caption__center' })
-	            )
-	          )
-	        )
+	          } }),
+	        _react2.default.createElement(_Image2.default, null)
 	      );
 	    }
 	  }]);
@@ -29306,6 +29229,170 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e34aafbb485a96eaf2a789b2bf3af6fe.gif";
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _photoswipe = __webpack_require__(218);
+
+	var _photoswipe2 = _interopRequireDefault(_photoswipe);
+
+	var _photoswipeUiDefault = __webpack_require__(219);
+
+	var _photoswipeUiDefault2 = _interopRequireDefault(_photoswipeUiDefault);
+
+	__webpack_require__(220);
+
+	__webpack_require__(224);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Gallery = function (_Component) {
+	  _inherits(Gallery, _Component);
+
+	  function Gallery() {
+	    _classCallCheck(this, Gallery);
+
+	    return _possibleConstructorReturn(this, (Gallery.__proto__ || Object.getPrototypeOf(Gallery)).apply(this, arguments));
+	  }
+
+	  _createClass(Gallery, [{
+	    key: 'show',
+	    value: function show() {
+	      var items = [{
+	        src: 'http://lorempixel.com/g/400/200/',
+	        w: 400,
+	        h: 200
+	      }, {
+	        src: 'http://lorempixel.com/g/500/200/',
+	        w: 500,
+	        h: 200
+	      }];
+
+	      var options = { index: 0 };
+
+	      var gallery = new _photoswipe2.default(this.gallery, _photoswipeUiDefault2.default, items, options);
+	      gallery.init();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        {
+	          ref: function ref(_ref) {
+	            _this2.gallery = _ref;
+	          },
+	          className: 'pswp',
+	          tabIndex: '-1',
+	          role: 'dialog',
+	          'aria-hidden': 'true'
+	        },
+	        _react2.default.createElement('div', { className: 'pswp__bg' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'pswp__scroll-wrap' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pswp__container' },
+	            _react2.default.createElement('div', { className: 'pswp__item' }),
+	            _react2.default.createElement('div', { className: 'pswp__item' }),
+	            _react2.default.createElement('div', { className: 'pswp__item' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pswp__ui pswp__ui--hidden' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__top-bar' },
+	              _react2.default.createElement('div', { className: 'pswp__counter' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--close', title: 'Close (Esc)' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--share', title: 'Share' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--fs', title: 'Toggle fullscreen' }),
+	              _react2.default.createElement('button', { className: 'pswp__button pswp__button--zoom', title: 'Zoom in/out' }),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'pswp__preloader' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'pswp__preloader__icn' },
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'pswp__preloader__cut' },
+	                    _react2.default.createElement('div', { className: 'pswp__preloader__donut' })
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__share-modal pswp__share-modal--hidden pswp__single-tap' },
+	              _react2.default.createElement('div', { className: 'pswp__share-tooltip' })
+	            ),
+	            _react2.default.createElement('button', {
+	              className: 'pswp__button pswp__button--arrow--left',
+	              title: 'Previous (arrow left)'
+	            }),
+	            _react2.default.createElement('button', {
+	              className: 'pswp__button pswp__button--arrow--right',
+	              title: 'Next (arrow right)'
+	            }),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'pswp__caption' },
+	              _react2.default.createElement('div', { className: 'pswp__caption__center' })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Gallery;
+	}(_react.Component);
+
+	exports.default = Gallery;
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  return _react2.default.createElement('div', null);
+	};
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }
 /******/ ]);

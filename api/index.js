@@ -9,6 +9,7 @@ const baseURL = req => `${req.protocol}://${req.hostname}:${port}`;
 const imageURL = req => `${baseURL(req)}/images`;
 const jpgsOnly = file => file.match(/\.jpe?g$/);
 
+app.use(express.static('build'));
 app.use('/images', express.static(imagePath));
 
 app.get('/albums', co(function* albums(req, res) {
@@ -40,4 +41,4 @@ app.get('/feed/:album', co(function* album(req, res) {
   res.send(urls);
 }));
 
-app.listen(3000);
+app.listen(port);

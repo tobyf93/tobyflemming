@@ -21,10 +21,6 @@ class Main extends Component {
           images={this.props.images}
           showGallery={(i) => this.gallery.show(i)}
         />
-        <button onClick={() => this.gallery.show()}>
-          show gallery
-        </button>
-
       </div>
     );
   }

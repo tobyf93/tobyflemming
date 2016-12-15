@@ -20,8 +20,8 @@ export default class Gallery extends Component {
     this.setState({ items });
   }
 
-  show() {
-    const options = { index: 0, history: false, shareEl: false };
+  show(i) {
+    const options = { index: i, history: false, shareEl: false };
     const gallery = new PhotoSwipe(this.gallery, PhotoSwipeUIDefault, this.state.items, options);
     gallery.init();
   }

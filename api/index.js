@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('mz/fs');
 const co = require('co-express');
+const sizeOf = require('image-size');
 
 const app = express();
 const port = 80;
@@ -23,7 +24,14 @@ app.get('/feed', co(function* feed(req, res) {
     const directory = directories[i];
     let files = yield fs.readdir(`${imagePath}/${directory}`);
     files = files.filter(jpgsOnly);
-    files.forEach(file => urls.push(`${directory}/${file}`));
+    files.forEach((file) => {
+      const { height, width } = sizeOf(`${imagePath}/${directory}/${file}`);
+      urls.push({
+        height,
+        width,
+        url: `${directory}/${file}`,
+      });
+    });
   }
 
   res.send(urls);
@@ -34,7 +42,7 @@ app.get('/feed/:album', co(function* album(req, res) {
 
   let files = yield fs.readdir(`${imagePath}/${req.params.album}`);
   files = files.filter(jpgsOnly);
-  files.forEach(file => urls.push(`${imageURL(req)}/${req.params.album}/${file}`));
+  files.forEach(file => urls.push(`${req.params.album}/${file}`));
 
   res.send(urls);
 }));

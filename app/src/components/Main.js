@@ -7,15 +7,19 @@ import * as actions from '../redux/actions';
 
 class Main extends Component {
   componentDidMount() {
-    // this.gallery.show();
     this.props.fetchFeed();
   }
 
   render() {
     return (
       <div>
-        <Gallery ref={(ref) => { this.gallery = ref; }} />
-        <Image />
+        <Gallery
+          ref={(ref) => { this.gallery = ref; }}
+          images={this.props.images}
+        />
+        <button onClick={() => this.gallery.show()}>
+          show gallery
+        </button>
       </div>
     );
   }

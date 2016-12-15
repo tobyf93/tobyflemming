@@ -5,23 +5,24 @@ import 'photoswipe/dist/photoswipe.css';
 import 'photoswipe/dist/default-skin/default-skin.css';
 
 export default class Gallery extends Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  componentWillReceiveProps(props) {
+    const items = props.images.map(image => ({
+      src: image.url,
+      w: image.width,
+      h: image.height,
+    }));
+
+    this.setState({ items });
+  }
+
   show() {
-    const items = [
-      {
-        src: 'http://lorempixel.com/g/400/200/',
-        w: 400,
-        h: 200,
-      },
-      {
-        src: 'http://lorempixel.com/g/500/200/',
-        w: 500,
-        h: 200,
-      },
-    ];
-
-    const options = { index: 0 };
-
-    const gallery = new PhotoSwipe(this.gallery, PhotoSwipeUIDefault, items, options);
+    const options = { index: 0, history: false, shareEl: false };
+    const gallery = new PhotoSwipe(this.gallery, PhotoSwipeUIDefault, this.state.items, options);
     gallery.init();
   }
 

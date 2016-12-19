@@ -24,44 +24,40 @@ class Grid extends Component {
 
   render() {
     const chunkSize = 3;
-    const baseStyle = {
-      flex: 1,
-      border: '5px solid black',
-      margin: '10px',
-    };
 
     return (
       <div>
         {
           chunkArray(this.props.images, chunkSize).map((chunk, i) => {
             const images = chunk.map((image, j) => {
-              const style = {
-                ...baseStyle,
-                backgroundImage: `url('${image.url}')`,
-              };
               const key = this.props.images.indexOf(image);
+              const props = {
+                key,
+                className: 'image',
+                style: { backgroundImage: `url('${image.url}')` },
+                onClick: () => this.props.showGallery(key),
+              };
 
               // Reference the first item of every chunk
               if (j === 0) {
                 return (
                   <div
-                    key={key}
+                    {...props}
                     ref={(ref) => { this.divs.push(ref); }}
-                    style={style}
                   />
                 );
               }
 
-              return <div key={key} style={style} />;
+              return <div {...props} />;
             });
 
             // Ensure incomplete chunks have placeholders
             while (images.length !== chunkSize) {
-              images.push(<div key={-images.length} style={baseStyle} />);
+              images.push(<div key={-images.length} className="placeholder" />);
             }
 
             return (
-              <div key={i} style={{ display: 'flex' }}>
+              <div key={i} className="image-row">
                 {images}
               </div>
             );

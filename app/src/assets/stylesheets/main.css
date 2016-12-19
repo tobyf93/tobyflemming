@@ -1,0 +1,28 @@
+html {
+  background-image: url('../images/concrete_seamless.png');
+  font-family: "Courier New", Courier, monospace;
+}
+
+.header {
+  font-size: 2em;
+  text-align: center;
+  margin: 25px;
+}
+
+.image-row {
+  display: flex;
+}
+
+.image {
+  flex: 1;
+  border: 1px solid black;
+  margin: 10px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer
+}
+
+.placeholder {
+  flex: 1;
+  margin: 11px;
+}

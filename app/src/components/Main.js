@@ -13,13 +13,14 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <div className="header">Toby Flemming</div>
         <Gallery
           ref={(ref) => { this.gallery = ref; }}
           images={this.props.images}
         />
         <Grid
           images={this.props.images}
-          showGallery={(i) => this.gallery.show(i)}
+          showGallery={i => this.gallery.show(i)}
         />
       </div>
     );

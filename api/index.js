@@ -34,7 +34,16 @@ app.get('/feed', co(function* feed(req, res) {
     });
   }
 
-  res.send(urls);
+  // Sort, latest first
+  res.send(urls.sort((a, b) => {
+    if (a.url < b.url) {
+      return 1;
+    } else if (a.url > b.url) {
+      return -1;
+    }
+
+    return 0;
+  }));
 }));
 
 app.get('/feed/:album', co(function* album(req, res) {

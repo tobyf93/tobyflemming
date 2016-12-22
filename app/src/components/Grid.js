@@ -34,7 +34,7 @@ class Grid extends Component {
               const props = {
                 key,
                 className: 'image',
-                style: { backgroundImage: `url('${image.url}')` },
+                style: { backgroundImage: `url('${image.thumbURL}')` },
                 onClick: () => this.props.showGallery(key),
               };
 

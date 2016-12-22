@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('mz/fs');
 const co = require('co-express');
 const sizeOf = require('image-size');
+const recursive = require('recursive-readdir');
 
 const app = express();
 const port = 80;
@@ -17,33 +18,47 @@ app.get('/albums', co(function* albums(req, res) {
 }));
 
 app.get('/feed', co(function* feed(req, res) {
-  const urls = [];
+  recursive(imagePath, ['.DS_Store', '*_thumb.jpg'], (err, files) => {
+    const images = files.map((file) => {
+      const { height, width } = sizeOf(file);
+      const URL = file.replace('images/', '');
 
-  const directories = yield fs.readdir(imagePath);
-  for (let i = 0; i < directories.length; i += 1) {
-    const directory = directories[i];
-    let files = yield fs.readdir(`${imagePath}/${directory}`);
-    files = files.filter(jpgsOnly);
-    files.forEach((file) => {
-      const { height, width } = sizeOf(`${imagePath}/${directory}/${file}`);
-      urls.push({
+      return {
         height,
         width,
-        url: `${directory}/${file}`,
-      });
+        thumbURL: URL.replace('.jpg', '_thumb.jpg'),
+        fullURL: URL,
+      };
     });
-  }
+
+    res.send(images.sort((a, b) => {
+      if (a.thumbURL < b.thumbURL) {
+        return 1;
+      } else if (a.thumbURL > b.thumbURL) {
+        return -1;
+      }
+
+      return 0;
+    }));
+  });
+
+  // const directories = yield fs.readdir(imagePath);
+  // for (let i = 0; i < directories.length; i += 1) {
+  //   const directory = directories[i];
+  //   let files = yield fs.readdir(`${imagePath}/${directory}`);
+  //   files = files.filter(jpgsOnly);
+  //   files.forEach((file) => {
+  //     const { height, width } = sizeOf(`${imagePath}/${directory}/${file}`);
+  //     urls.push({
+  //       height,
+  //       width,
+  //       url: `${directory}/${file}`,
+  //     });
+  //   });
+  // }
 
   // Sort, latest first
-  res.send(urls.sort((a, b) => {
-    if (a.url < b.url) {
-      return 1;
-    } else if (a.url > b.url) {
-      return -1;
-    }
 
-    return 0;
-  }));
 }));
 
 app.get('/feed/:album', co(function* album(req, res) {

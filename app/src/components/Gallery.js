@@ -12,7 +12,7 @@ export default class Gallery extends Component {
 
   componentWillReceiveProps(props) {
     const items = props.images.map(image => ({
-      src: image.url,
+      src: image.fullURL,
       w: image.width,
       h: image.height,
     }));

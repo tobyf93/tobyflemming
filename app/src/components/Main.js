@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Gallery from './Gallery';
 import Grid from './Grid';
+import SideMenu from './SideMenu';
 import * as actions from '../redux/actions';
 
 class Main extends Component {
@@ -12,9 +13,10 @@ class Main extends Component {
 
   render() {
     return (
-      <div>
-        <div className="pageWrapper">
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
           <div className="header">Toby Flemming</div>
+          <div className="header mobile">TF</div>
           <Gallery
             ref={(ref) => { this.gallery = ref; }}
             images={this.props.images}
@@ -24,24 +26,8 @@ class Main extends Component {
             showGallery={i => this.gallery.show(i)}
           />
         </div>
-        <div className="menu">
-          <ul>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-            <li>Item 1</li>
-            <li>Item 2</li>
-            <li>Item 3</li>
-          </ul>
+        <div style={{ flexBasis: '77px' }}>
+          <SideMenu />
         </div>
       </div>
     );

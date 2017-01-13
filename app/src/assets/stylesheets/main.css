@@ -10,37 +10,67 @@ body {
 
 .header {
   font-size: 2em;
-  text-align: center;
   margin: 25px;
+}
+
+.header.mobile {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .header {
+    display: none;
+  }
+
+  .header.mobile {
+    display: block;
+  }
 }
 
 .pageWrapper {
   position: relative;
+  right: 0;
+}
+
+.pageWrapper.menu-open {
   right: 500px;
 }
 
-.menu {
+.menu-wrapper {
+  display: flex;
   position: fixed;
-  top: 0;
-  right: 0;
-  width: 500px;
   height: 100%;
-  box-shadow: 0 0 15px black;
+  width: 320px;
+  top: 0;
+  right: -243px;
   transition: all 0.5s ease;
   overflow: scroll;
+  background-image: url('../images/concrete_seamless.png');
+  box-shadow: 0 0 15px black;
 }
 
-.menu ul {
+.menu-wrapper.menu-open {
+  right: 0;
+}
+
+.menu-button {
+  font-size: 2em;
+  background-color: transparent;
+  border: none;
+  margin: 28px 25px 0 25px;
+}
+
+.menuPanel ul {
   padding: 0;
-  margin: 0;
+  margin: 0 25px;
+  font-size: 2em;
 }
 
-.menu li {
+.menuPanel li {
   text-transform: uppercase;
   list-style-type: none;
   text-align: center;
-  font-size: 2em;
-  margin-top: 25px;
+  margin: 25px 0 0 0;
 }
 
 .image-row {

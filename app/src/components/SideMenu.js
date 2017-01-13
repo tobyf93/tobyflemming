@@ -10,15 +10,15 @@ class SideMenu extends Component {
 
   render() {
     return (
-      <div className={`menu-wrapper ${this.state.open ? 'menu-open' : ''}`}>
-        <div>
+      <div className="menu-wrapper">
+        <div className="menu-button-wrapper">
           <i
             className="menu-button fa fa-bars"
             aria-hidden="true"
             onClick={() => this.setState({ open: !this.state.open })}
           />
         </div>
-        <div className="menuPanel" style={{ flex: 1 }}>
+        <div className={`menu-panel ${this.state.open ? 'menu-open' : ''}`} style={{ flex: 1 }}>
           <ul>
             <li>coming soon</li>
           </ul>

@@ -13,8 +13,8 @@ class Main extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1 }}>
+      <div className="page-wrapper">
+        <div className="content-wrapper">
           <div className="header">Toby Flemming</div>
           <div className="header mobile">TF</div>
           <Gallery
@@ -26,9 +26,8 @@ class Main extends Component {
             showGallery={i => this.gallery.show(i)}
           />
         </div>
-        <div style={{ flexBasis: '77px' }}>
-          <SideMenu />
-        </div>
+        <div style={{ width: '60px' }} />
+        <SideMenu />
       </div>
     );
   }

@@ -20,8 +20,16 @@ class SideMenu extends Component {
         </div>
         <div className={`menu-panel ${this.state.open ? 'menu-open' : ''}`} style={{ flex: 1 }}>
           <ul>
-            <li>coming soon</li>
+            <li>buy</li>
+            <li>sessions</li>
           </ul>
+          <a
+            href="https://www.instagram.com/toby_phlegm/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="instagram fa fa-instagram" />
+          </a>
         </div>
       </div>
     );

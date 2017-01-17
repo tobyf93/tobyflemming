@@ -15,8 +15,10 @@ class Main extends Component {
     return (
       <div className="page-wrapper">
         <div className="content-wrapper">
-          <div className="header">Toby Flemming</div>
-          <div className="header mobile">TF</div>
+          <div className="header">
+            <span className="desktop">Toby Flemming</span>
+            <span className="mobile">TF</span>
+          </div>
           <Gallery
             ref={(ref) => { this.gallery = ref; }}
             images={this.props.images}

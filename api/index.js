@@ -3,6 +3,7 @@ const fs = require('mz/fs');
 const co = require('co-express');
 const sizeOf = require('image-size');
 const recursive = require('recursive-readdir');
+const path = require('path');
 
 const app = express();
 const port = 80;
@@ -17,7 +18,7 @@ app.get('/albums', co(function* albums(req, res) {
   res.send(directories);
 }));
 
-app.get('/feed', co(function* feed(req, res) {
+app.get('/feed', (req, res) => {
   recursive(imagePath, ['.DS_Store', '*_thumb.jpg'], (err, files) => {
     const images = files.map((file) => {
       const { height, width } = sizeOf(file);
@@ -41,25 +42,7 @@ app.get('/feed', co(function* feed(req, res) {
       return 0;
     }));
   });
-
-  // const directories = yield fs.readdir(imagePath);
-  // for (let i = 0; i < directories.length; i += 1) {
-  //   const directory = directories[i];
-  //   let files = yield fs.readdir(`${imagePath}/${directory}`);
-  //   files = files.filter(jpgsOnly);
-  //   files.forEach((file) => {
-  //     const { height, width } = sizeOf(`${imagePath}/${directory}/${file}`);
-  //     urls.push({
-  //       height,
-  //       width,
-  //       url: `${directory}/${file}`,
-  //     });
-  //   });
-  // }
-
-  // Sort, latest first
-
-}));
+});
 
 app.get('/feed/:album', co(function* album(req, res) {
   const urls = [];
@@ -70,5 +53,9 @@ app.get('/feed/:album', co(function* album(req, res) {
 
   res.send(urls);
 }));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
 app.listen(port);

@@ -20,7 +20,8 @@ class SideMenu extends Component {
         </div>
         <div className={`menu-panel ${this.state.open ? 'menu-open' : ''}`} style={{ flex: 1 }}>
           <ul>
-            <li>buy</li>
+            <li>home</li>
+            <li>buy prints</li>
             <li>sessions</li>
           </ul>
           <a
